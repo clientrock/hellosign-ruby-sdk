@@ -223,7 +223,7 @@ module HelloSign
             else
               raise HelloSign::Error::FileNotFound.new "#{file} was not found on the filesystem"
             end
-          elsif file.is_a? File
+          elsif file.is_a?(File) || file.is_a?(Tempfile)
             mime_type = MIMEfromIO file
             opts[:"file[#{index}]"] = Faraday::UploadIO.new(file, mime_type)
           elsif defined? ActionDispatch::Http::UploadedFile
